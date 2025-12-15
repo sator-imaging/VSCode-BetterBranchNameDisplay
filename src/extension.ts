@@ -14,18 +14,20 @@ export async function activate(context: vscode.ExtensionContext) {
     await gitExtension.activate();
   }
 
-  const inputBox = vscode.scm.inputBox;  // ok to use global source control
-
   const git = gitExtension.exports.getAPI(1);
 
   git.repositories.forEach(repo => {
-    const e = repo.state.onDidChange(() => updateInputBoxPlaceholder(repo));
-    context.subscriptions.push(e);
+    const subs = repo.state.onDidChange(() => updateInputBoxPlaceholder(repo));
+    context.subscriptions.push(subs);
+
     updateInputBoxPlaceholder(repo);
   });
 
   function updateInputBoxPlaceholder(repo: Repository) {
     const branchName = repo.state.HEAD?.name ?? "<UNKNOWN>";
-    inputBox.placeholder = `"${branchName}" Branch (Ctrl+Enter to commit)`;
+    const inputBox = vscode.scm.inputBox;  // ok to use global source control
+    if (inputBox) {
+      inputBox.placeholder = `"${branchName}" Branch (Ctrl+Enter to commit)`;
+    }
   }
 }
