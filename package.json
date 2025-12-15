@@ -1,6 +1,6 @@
 {
   "name": "better-branch-name-display",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "displayName": "Better Branch Name Display",
   "publisher": "sator-imaging",
   "description": "Source Control input field placeholder to show full branch name first",
