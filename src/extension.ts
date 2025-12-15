@@ -1,28 +1,9 @@
 import * as vscode from "vscode";
-
-interface GitExtension {
-  getAPI(version: number): GitAPI;
-}
-
-interface GitAPI {
-  repositories: Repository[];
-}
-
-interface Repository {
-  state: {
-    HEAD: Branch | undefined;
-  };
-  onDidChangeHEAD: vscode.Event<void>;
-}
-
-interface Branch {
-  name?: string;
-}
-
+import { GitExtension, Repository } from "./api/git";
 
 // export function deactivate() {}
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
   const inputBox = vscode.scm.inputBox;  // ok to use global source control
 
   const gitExtension = vscode.extensions.getExtension<GitExtension>("vscode.git")?.exports;
@@ -34,13 +15,10 @@ export function activate(context: vscode.ExtensionContext) {
   const git = gitExtension.getAPI(1);
 
   git.repositories.forEach(repo => {
-    setupRepo(repo);
+    const e = repo.state.onDidChange(() => updateInputBoxPlaceholder(repo));
+    context.subscriptions.push(e);
     updateInputBoxPlaceholder(repo);
   });
-
-  function setupRepo(repo: Repository) {
-    repo.onDidChangeHEAD(() => updateInputBoxPlaceholder(repo));
-  }
 
   function updateInputBoxPlaceholder(repo: Repository) {
     const branchName = repo.state.HEAD?.name ?? "<UNKNOWN>";
