@@ -6,13 +6,17 @@ import { GitExtension, Repository } from "./api/git";
 export async function activate(context: vscode.ExtensionContext) {
   const inputBox = vscode.scm.inputBox;  // ok to use global source control
 
-  const gitExtension = vscode.extensions.getExtension<GitExtension>("vscode.git")?.exports;
+  const gitExtension = vscode.extensions.getExtension<GitExtension>("vscode.git");
   if (!gitExtension) {
     vscode.window.showWarningMessage("Git extension not found");
     return;
   }
 
-  const git = gitExtension.getAPI(1);
+  if (!gitExtension.isActive) {
+    await gitExtension.activate();
+  }
+
+  const git = gitExtension.exports.getAPI(1);
 
   git.repositories.forEach(repo => {
     const e = repo.state.onDidChange(() => updateInputBoxPlaceholder(repo));
