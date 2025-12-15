@@ -1,0 +1,17 @@
+.*
+!.github
+!.vscode-test
+!.gitignore
+!.vscodeignore
+!.eslintrc.json
+
+*.md
+!README.md
+!LICENSE.md
+
+*.vsix
+
+out
+dist
+node_modules
+_Photoshop
