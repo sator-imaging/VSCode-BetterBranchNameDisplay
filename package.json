@@ -45,7 +45,7 @@
           "name": "Current Branch",
           "icon": "$(git-branch)",
           "type": "tree",
-          "visibility": "collapsed",
+          "visibility": "visible",
           "initialSize": 0
         }
       ]
