@@ -46,7 +46,7 @@ export async function activate(context: vscode.ExtensionContext) {
     getTreeItem(element: string): vscode.TreeItem {
       const item = new vscode.TreeItem(element);
       item.collapsibleState = vscode.TreeItemCollapsibleState.None;  // auto-fit
-      // item.iconPath = new vscode.ThemeIcon('git-branch');
+      item.iconPath = new vscode.ThemeIcon('git-branch');
       return item;
     }
 
@@ -56,5 +56,14 @@ export async function activate(context: vscode.ExtensionContext) {
   }
 
   const provider = new Provider();
-  vscode.window.registerTreeDataProvider(ID, provider);
+  const treeView = vscode.window.createTreeView(ID, {
+    treeDataProvider: provider
+  });
+
+  treeView.title = 'HELLO';
+  treeView.message = 'WORLD';
+
+  // context.subscriptions.push(
+  //   vscode.window.registerTreeDataProvider(ID, provider)
+  // );
 }
