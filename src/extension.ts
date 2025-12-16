@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 import { GitExtension, Repository } from './api/git';
 
+const ID: string = 'betterBranchNameDisplayView';
+
 // export function deactivate() { }
 
 export async function activate(context: vscode.ExtensionContext) {
@@ -54,5 +56,5 @@ export async function activate(context: vscode.ExtensionContext) {
   }
 
   const provider = new Provider();
-  vscode.window.registerTreeDataProvider('betterBranchNameDisplayView', provider);
+  vscode.window.registerTreeDataProvider(ID, provider);
 }

@@ -1,6 +1,6 @@
 {
   "name": "better-branch-name-display",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "displayName": "Better Branch Name Display",
   "publisher": "sator-imaging",
   "description": "Source Control input field placeholder to show full branch name first",
@@ -29,9 +29,6 @@
   "engines": {
     "vscode": "^1.74.0"
   },
-  "activationEvents": [
-    "onStartupFinished"
-  ],
   "main": "./out/extension.js",
   "browser": "./out/extension.js",
   "extensionDependencies": [
@@ -44,7 +41,7 @@
           "id": "betterBranchNameDisplayView",
           "name": "Current Branch",
           "icon": "$(git-branch)",
-          "type": "webview",
+          "type": "tree",
           "visibility": "visible",
           "initialSize": 0
         }
