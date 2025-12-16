@@ -30,7 +30,7 @@ export async function activate(context: vscode.ExtensionContext) {
     constructor() {
       const item = new vscode.TreeItem(UNKNOWN);
       item.collapsibleState = vscode.TreeItemCollapsibleState.None;  // auto-fit
-      item.iconPath = new vscode.ThemeIcon('git-branch');
+      // item.iconPath = new vscode.ThemeIcon('git-branch');
       this.treeItem = item;
     }
 
@@ -43,7 +43,7 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     getChildren(): string[] {
-      return [this.branchName];
+      return []; //[this.branchName];
     }
 
     setLabel(label: string) {
@@ -58,7 +58,7 @@ export async function activate(context: vscode.ExtensionContext) {
   });
 
   treeView.title = UNKNOWN;
-  treeView.message = '👆 Current branch name is dynamically updated on git change';
+  treeView.message = '👆 Current branch name';
 
   git.repositories.forEach(repo => {
     const subs = repo.state.onDidChange(() => onRepoChange(repo));
