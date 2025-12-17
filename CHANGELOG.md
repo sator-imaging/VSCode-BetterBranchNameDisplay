@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.3](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.0.2...v1.0.3) (2025-12-17)
+
+
+### Bug Fixes
+
+* actions ([8a2b32e](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/8a2b32eb5dd001162b76bca33f26d4992abbfdbd))
+* event handling and packaging ([129b83f](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/129b83f1b3b138fcf241fe386548c639a55df830))
+
 ## [1.0.2](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.0.1...v1.0.2) (2025-12-16)
 
 
