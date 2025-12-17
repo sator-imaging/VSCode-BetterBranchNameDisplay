@@ -4,6 +4,8 @@ import { GitExtension, Repository } from './api/git';
 const ID: string = 'betterBranchNameDisplayView';
 const UNKNOWN: string = '<UNKNOWN>';
 
+const DISPOSABLES: Set<vscode.Disposable> = new Set<vscode.Disposable>();
+
 // export function deactivate() { }
 
 export async function activate(context: vscode.ExtensionContext) {
@@ -60,20 +62,32 @@ export async function activate(context: vscode.ExtensionContext) {
   treeView.title = UNKNOWN;
   treeView.message = '👆 Current branch name';
 
-  git.repositories.forEach(repo => {
-    const subs = repo.state.onDidChange(() => onRepoChange(repo));
-    context.subscriptions.push(subs);
-
-    onRepoChange(repo);
-  });
-
   context.subscriptions.push(treeView);
 
-  function onRepoChange(repo: Repository) {
-    const name = repo.state.HEAD?.name;
-    if (name) {
-      treeView.title = name;
-      provider.setLabel(name);
+  setupEvents();
+
+  function setupEvents() {
+    DISPOSABLES.forEach(d => d.dispose());
+    DISPOSABLES.clear();
+
+    const onRepositoryOpen = git.onDidOpenRepository(_ => setupEvents());
+    DISPOSABLES.add(onRepositoryOpen);
+
+    git.repositories.forEach(repo => {
+      const subs = repo.state.onDidChange(() => onRepoChange(repo));
+      DISPOSABLES.add(subs);
+
+      onRepoChange(repo);
+    });
+
+    DISPOSABLES.forEach(d => context.subscriptions.push(d));
+
+    function onRepoChange(repo: Repository) {
+      const name = repo.state.HEAD?.name;
+      if (name) {
+        treeView.title = name;
+        provider.setLabel(name);
+      }
     }
   }
 }
