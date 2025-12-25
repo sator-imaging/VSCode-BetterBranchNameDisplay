@@ -16,3 +16,4 @@ This Visual Studio Code extension enhances the Source Control view by prominentl
 - This extension requires Git to be installed and available in your system's PATH.
 - It is a UI-only extension and does not add any new commands.
 - The browser environment (e.g., github.dev) is not supported.
+- Changing the branch by using the `git checkout ...` command is also supported.
