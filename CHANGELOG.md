@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.0.3...v1.0.4) (2025-12-25)
+
+
+### Bug Fixes
+
+* drop browser support ([598845e](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/598845ebbf7325ca036b5d93d337442ad4031304))
+
 ## [1.0.3](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.0.2...v1.0.3) (2025-12-17)
 
 
