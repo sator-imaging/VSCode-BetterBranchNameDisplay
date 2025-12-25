@@ -10,7 +10,9 @@ const DISPOSABLES: Set<vscode.Disposable> = new Set<vscode.Disposable>();
 
 export async function activate(context: vscode.ExtensionContext) {
   const gitExtension = vscode.extensions.getExtension<GitExtension>('vscode.git');
-  if (!gitExtension) return;
+  if (!gitExtension) {
+    return;
+  }
   if (!gitExtension.isActive) {
     await gitExtension.activate();
   }
