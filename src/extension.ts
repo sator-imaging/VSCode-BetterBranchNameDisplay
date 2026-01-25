@@ -87,8 +87,12 @@ export async function activate(context: vscode.ExtensionContext) {
     function onRepoChange(repo: Repository) {
       const name = repo.state.HEAD?.name;
       if (name) {
-        treeView.title = name;
-        provider.setLabel(name);
+        const nameWithEmoji = (name === 'main' || name === 'master')
+          ? name
+          : `✨ ${name} ✨`;
+
+        treeView.title = nameWithEmoji;
+        provider.setLabel(nameWithEmoji);
       }
     }
   }
