@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.0.5...v1.1.0) (2026-01-25)
+
+
+### Features
+
+* show emoji if not on the main branch ([7b9134f](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/7b9134fe0cbbcbbff503f85e90c71e95dc7f06f8))
+
 ## [1.0.5](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.0.4...v1.0.5) (2025-12-25)
 
 
