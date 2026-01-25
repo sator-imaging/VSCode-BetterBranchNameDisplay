@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.1.0...v1.2.0) (2026-01-25)
+
+
+### Features
+
+* '/' -&gt; ' / ' ([4237316](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/42373161d06c70205cb7ce11584338946410df11))
+
 ## [1.1.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.0.5...v1.1.0) (2026-01-25)
 
 
