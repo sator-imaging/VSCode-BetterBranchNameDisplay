@@ -85,7 +85,7 @@ export async function activate(context: vscode.ExtensionContext) {
     DISPOSABLES.forEach(d => context.subscriptions.push(d));
 
     function onRepoChange(repo: Repository) {
-      const name = repo.state.HEAD?.name;
+      const name = repo.state.HEAD?.name?.replace(/\//g, ' / ');
       if (name) {
         const nameWithEmoji = (name === 'main' || name === 'master')
           ? name
