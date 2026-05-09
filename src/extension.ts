@@ -48,8 +48,19 @@ export async function activate(context: vscode.ExtensionContext) {
       return this.treeItem;
     }
 
-    getChildren(): string[] {
-      return []; //[this.branchName];
+    getChildren(element?: string): string[] {
+      if (!element && this.branchName !== UNKNOWN) {
+        return [this.branchName];
+      }
+      return [];
+    }
+
+    getParent(element: string): vscode.ProviderResult<string> {
+      return undefined;
+    }
+
+    getBranchName(): string {
+      return this.branchName;
     }
 
     setLabel(label: string) {
@@ -98,21 +109,48 @@ export async function activate(context: vscode.ExtensionContext) {
       const subs = repo.state.onDidChange(() => onRepoChange(repo));
       DISPOSABLES.add(subs);
 
-      onRepoChange(repo);
+      const uiSubs = repo.ui.onDidChange(() => {
+        if (repo.ui.selected) {
+          onRepoChange(repo);
+        }
+      });
+      DISPOSABLES.add(uiSubs);
+
+      if (repo.ui.selected) {
+        onRepoChange(repo);
+      }
     });
+
+    if (!activeRepo && git.repositories.length > 0) {
+      onRepoChange(git.repositories[0]);
+    }
 
     DISPOSABLES.forEach(d => context.subscriptions.push(d));
 
-    function onRepoChange(repo: Repository) {
+    async function onRepoChange(repo: Repository) {
       activeRepo = repo;
-      const name = repo.state.HEAD?.name?.replace(/\//g, ' / ');
+      const rawName = repo.state.HEAD?.name;
+      const name = rawName?.replace(/\//g, ' / ');
       if (name) {
-        const nameWithEmoji = (name === 'main' || name === 'master')
+        const nameWithEmoji = (rawName === 'main' || rawName === 'master')
           ? name
           : `✨ ${name} ✨`;
 
+        if (treeView.title === nameWithEmoji && provider.getBranchName() === nameWithEmoji) {
+          return;
+        }
+
         treeView.title = nameWithEmoji;
         provider.setLabel(nameWithEmoji);
+
+        if (rawName === 'main' || rawName === 'master') {
+          if (treeView.visible) {
+            await vscode.commands.executeCommand(`${ID}.focus`);
+            await vscode.commands.executeCommand('workbench.action.collapseSection');
+          }
+        } else {
+          await treeView.reveal(nameWithEmoji, { expand: true, select: false, focus: false });
+        }
       }
     }
   }
