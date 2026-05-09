@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.2.0...v1.3.0) (2026-05-09)
+
+
+### Features
+
+* add Switch to Main button ([ff45ccc](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/ff45ccc1abc8acc4f25d55967c340240efc3e128))
+
 ## [1.2.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.1.0...v1.2.0) (2026-01-25)
 
 
