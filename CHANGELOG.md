@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.4.0...v1.4.1) (2026-05-09)
+
+
+### Bug Fixes
+
+* Auto-collapse reliability and repository selection logic ([#27](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/issues/27)) ([a8d36dd](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/a8d36dd919d19206492f6b43f9e2cfd52c6f699c))
+
 ## [1.4.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.3.0...v1.4.0) (2026-05-09)
 
 
