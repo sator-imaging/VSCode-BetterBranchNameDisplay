@@ -106,7 +106,11 @@ export async function activate(context: vscode.ExtensionContext) {
     DISPOSABLES.add(onRepositoryOpen);
 
     git.repositories.forEach(repo => {
-      const subs = repo.state.onDidChange(() => onRepoChange(repo));
+      const subs = repo.state.onDidChange(() => {
+        if (repo.ui.selected) {
+          onRepoChange(repo);
+        }
+      });
       DISPOSABLES.add(subs);
 
       const uiSubs = repo.ui.onDidChange(() => {
@@ -122,7 +126,8 @@ export async function activate(context: vscode.ExtensionContext) {
     });
 
     if (!activeRepo && git.repositories.length > 0) {
-      onRepoChange(git.repositories[0]);
+      const selected = git.repositories.find(r => r.ui.selected);
+      onRepoChange(selected || git.repositories[0]);
     }
 
     DISPOSABLES.forEach(d => context.subscriptions.push(d));
@@ -145,6 +150,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         if (rawName === 'main' || rawName === 'master') {
           if (treeView.visible) {
+            await new Promise(resolve => setTimeout(resolve, 100));
             await vscode.commands.executeCommand(`${ID}.focus`);
             await vscode.commands.executeCommand('workbench.action.collapseSection');
           }
