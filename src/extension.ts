@@ -98,8 +98,22 @@ export async function activate(context: vscode.ExtensionContext) {
       const subs = repo.state.onDidChange(() => onRepoChange(repo));
       DISPOSABLES.add(subs);
 
-      onRepoChange(repo);
+      const uiSubs = repo.ui.onDidChange(() => {
+        if (repo.ui.selected) {
+          onRepoChange(repo);
+        }
+      });
+      DISPOSABLES.add(uiSubs);
+
+      if (repo.ui.selected) {
+        onRepoChange(repo);
+      }
     });
+
+    // if no repo is selected (e.g. at startup), use the first one if available
+    if (!activeRepo && git.repositories.length > 0) {
+      onRepoChange(git.repositories[0]);
+    }
 
     DISPOSABLES.forEach(d => context.subscriptions.push(d));
 
