@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.3.0...v1.4.0) (2026-05-09)
+
+
+### Features
+
+* Auto-expand and auto-collapse branch view ([#25](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/issues/25)) ([7b5f100](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/7b5f100e6f7f47b7735e6dc070b364c3636c8861))
+
 ## [1.3.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.2.0...v1.3.0) (2026-05-09)
 
 
