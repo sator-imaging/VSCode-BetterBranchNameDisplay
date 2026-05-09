@@ -9,6 +9,8 @@ const DISPOSABLES: Set<vscode.Disposable> = new Set<vscode.Disposable>();
 // export function deactivate() { }
 
 export async function activate(context: vscode.ExtensionContext) {
+  let activeRepo: Repository | undefined;
+
   const gitExtension = vscode.extensions.getExtension<GitExtension>('vscode.git');
   if (!gitExtension) {
     return;
@@ -66,6 +68,23 @@ export async function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(treeView);
 
+  context.subscriptions.push(vscode.commands.registerCommand('betterBranchNameDisplay.switchToMain', async () => {
+    if (!activeRepo) {
+      return;
+    }
+
+    try {
+      await activeRepo.checkout('main');
+    } catch (e: any) {
+      try {
+        await activeRepo.checkout('master');
+      } catch (e2: any) {
+        const message = `Failed to switch to 'main' or 'master' branch.\n\n[main]: ${e.message || e}\n\n[master]: ${e2.message || e2}`;
+        vscode.window.showErrorMessage(message, { modal: true });
+      }
+    }
+  }));
+
   setupEvents();
 
   function setupEvents() {
@@ -85,6 +104,7 @@ export async function activate(context: vscode.ExtensionContext) {
     DISPOSABLES.forEach(d => context.subscriptions.push(d));
 
     function onRepoChange(repo: Repository) {
+      activeRepo = repo;
       const name = repo.state.HEAD?.name?.replace(/\//g, ' / ');
       if (name) {
         const nameWithEmoji = (name === 'main' || name === 'master')

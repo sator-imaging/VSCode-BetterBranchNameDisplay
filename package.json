@@ -38,6 +38,22 @@
     "vscode.git"
   ],
   "contributes": {
+    "commands": [
+      {
+        "command": "betterBranchNameDisplay.switchToMain",
+        "title": "Ⓜ️",
+        "tooltip": "Switch to main/master branch"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "betterBranchNameDisplay.switchToMain",
+          "when": "view == betterBranchNameDisplayView",
+          "group": "navigation"
+        }
+      ]
+    },
     "views": {
       "scm": [
         {
