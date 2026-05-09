@@ -150,7 +150,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         if (rawName === 'main' || rawName === 'master') {
           if (treeView.visible) {
-            await new Promise(resolve => setTimeout(resolve, 100));
+            await new Promise(resolve => setTimeout(resolve, 310));
             await vscode.commands.executeCommand(`${ID}.focus`);
             await vscode.commands.executeCommand('workbench.action.collapseSection');
           }
