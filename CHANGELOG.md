@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.4.1...v1.4.2) (2026-05-16)
+
+
+### Bug Fixes
+
+* simple refactor ([#29](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/issues/29)) ([e2979fd](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/e2979fd0d660e6eb71afab7e6f40e3e1cc775db9))
+
 ## [1.4.1](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.4.0...v1.4.1) (2026-05-09)
 
 
