@@ -49,9 +49,11 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     getChildren(element?: string): string[] {
-      if (!element && this.branchName !== UNKNOWN) {
-        return [this.branchName];
-      }
+      // NOTE: Always returns empty. When returning branch name,
+      //       extension will show unnecessary duplicate text as a tree view item.
+      // if (!element && this.branchName !== UNKNOWN) {
+      //   return [this.branchName];
+      // }
       return [];
     }
 
@@ -75,7 +77,7 @@ export async function activate(context: vscode.ExtensionContext) {
   });
 
   treeView.title = UNKNOWN;
-  treeView.message = '👆 Current branch name';
+  treeView.message = "👆 Current branch name\nⓂ️ Switch to main branch";
 
   context.subscriptions.push(treeView);
 
@@ -141,7 +143,7 @@ export async function activate(context: vscode.ExtensionContext) {
           ? name
           : `✨ ${name} ✨`;
 
-        if (treeView.title === nameWithEmoji && provider.getBranchName() === nameWithEmoji) {
+        if (treeView.title === nameWithEmoji) {
           return;
         }
 
