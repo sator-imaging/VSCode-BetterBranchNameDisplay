@@ -77,7 +77,7 @@ export async function activate(context: vscode.ExtensionContext) {
   });
 
   treeView.title = UNKNOWN;
-  treeView.message = "👆 Current branch name\nⓂ️ Switch to main branch";
+  treeView.message = "👆 Current branch  Ⓜ️ Switch to main";
 
   context.subscriptions.push(treeView);
 
