@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.4.3...v1.5.0) (2026-05-20)
+
+
+### Features
+
+* Add "🧹 Fetch (Prune)" feature ([#33](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/issues/33)) ([e5dc041](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/e5dc041ab3f959fa818e84122c8af969f1dfeb55))
+
 ## [1.4.3](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.4.2...v1.4.3) (2026-05-16)
 
 
