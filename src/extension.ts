@@ -3,8 +3,6 @@ import { GitExtension, Repository } from './api/git';
 
 const ID: string = 'betterBranchNameDisplayView';
 const UNKNOWN: string = '<UNKNOWN>';
-const ACTION_SWITCH: string = 'switchToMain';
-const ACTION_FETCH: string = 'fetchPrune';
 
 const DISPOSABLES: Set<vscode.Disposable> = new Set<vscode.Disposable>();
 
@@ -32,22 +30,44 @@ export async function activate(context: vscode.ExtensionContext) {
     private _onDidChange = new vscode.EventEmitter<void>();
     readonly onDidChangeTreeData = this._onDidChange.event;
 
-    getTreeItem(element: string): vscode.TreeItem {
+    private readonly treeItem: vscode.TreeItem;
+    private branchName: string = UNKNOWN;
+
+    constructor() {
       const item = new vscode.TreeItem(UNKNOWN);
-      if (element === ACTION_SWITCH) {
-        item.label = "Ⓜ️ Switch to main";
-        item.command = { title: item.label, command: 'betterBranchNameDisplay.switchToMain' };
-      } else if (element === ACTION_FETCH) {
-        item.label = "🧹 Fetch (Prune)";
-        item.command = { title: item.label, command: 'betterBranchNameDisplay.fetchPrune' };
+      item.collapsibleState = vscode.TreeItemCollapsibleState.None;  // auto-fit
+      // item.iconPath = new vscode.ThemeIcon('git-branch');
+      this.treeItem = item;
+    }
+
+    getTreeItem(element: string): vscode.TreeItem {
+      if (element === 'switchToMain') {
+        const item = new vscode.TreeItem("Ⓜ️ Switch to main");
+        item.command = { title: item.label as string, command: 'betterBranchNameDisplay.switchToMain' };
+        return item;
       }
-      return item;
+      if (element === 'fetchPrune') {
+        const item = new vscode.TreeItem("🧹 Fetch (Prune)");
+        item.command = { title: item.label as string, command: 'betterBranchNameDisplay.fetchPrune' };
+        return item;
+      }
+
+      if (element !== this.branchName) {
+        this.branchName = element;
+        this.treeItem.label = element;
+      }
+      return this.treeItem;
     }
 
     getChildren(element?: string): string[] {
       if (!element) {
-        return [ACTION_SWITCH, ACTION_FETCH];
+        return ['switchToMain', 'fetchPrune'];
       }
+      // NOTE: Always returns empty. When returning branch name,
+      //       extension will show unnecessary duplicate text as a tree view item.
+      // if (!element && this.branchName !== UNKNOWN) {
+      //   return [this.branchName];
+      // }
       return [];
     }
 
@@ -55,8 +75,13 @@ export async function activate(context: vscode.ExtensionContext) {
       return undefined;
     }
 
-    refresh() {
-      // this._onDidChange.fire();
+    getBranchName(): string {
+      return this.branchName;
+    }
+
+    setLabel(label: string) {
+      this.getTreeItem(label);
+      this._onDidChange.fire();  // update UI automatically
     }
   }
 
@@ -150,6 +175,17 @@ export async function activate(context: vscode.ExtensionContext) {
         }
 
         treeView.title = nameWithEmoji;
+        // provider.setLabel(nameWithEmoji);
+
+        // if (rawName === 'main' || rawName === 'master') {
+        //   if (treeView.visible) {
+        //     await new Promise(resolve => setTimeout(resolve, 310));
+        //     await vscode.commands.executeCommand(`${ID}.focus`);
+        //     await vscode.commands.executeCommand('workbench.action.collapseSection');
+        //   }
+        // } else {
+        //   await treeView.reveal(nameWithEmoji, { expand: true, select: false, focus: false });
+        // }
       }
     }
   }
