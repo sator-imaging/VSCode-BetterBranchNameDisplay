@@ -79,10 +79,35 @@ export async function activate(context: vscode.ExtensionContext) {
   treeView.title = UNKNOWN;
   treeView.message = "👆 Current branch  Ⓜ️ Switch to main";
 
-  context.subscriptions.push(treeView);
+  const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+  statusBarItem.command = 'betterBranchNameDisplay.switchToMain';
+
+  context.subscriptions.push(treeView, statusBarItem);
 
   context.subscriptions.push(vscode.commands.registerCommand('betterBranchNameDisplay.switchToMain', async () => {
     if (!activeRepo) {
+      return;
+    }
+
+    const currentBranch = activeRepo.state.HEAD?.name;
+    if (currentBranch === 'main' || currentBranch === 'master') {
+      const answer = await vscode.window.showInformationMessage('Do you want to pull with prune?', { modal: true }, 'Yes');
+      if (answer !== 'Yes') {
+        return;
+      }
+
+      await vscode.window.withProgress({
+        location: vscode.ProgressLocation.Notification,
+        title: 'Pulling with prune...',
+        cancellable: false
+      }, async () => {
+        try {
+          await activeRepo!.fetch({ prune: true });
+          await activeRepo!.pull();
+        } catch (e: any) {
+          vscode.window.showErrorMessage(`Failed to pull with prune: ${e.message || e}`, { modal: true });
+        }
+      });
       return;
     }
 
@@ -140,8 +165,8 @@ export async function activate(context: vscode.ExtensionContext) {
       const name = rawName?.replace(/\//g, ' / ');
       if (name) {
         const nameWithEmoji = (rawName === 'main' || rawName === 'master')
-          ? name
-          : `✨ ${name} ✨`;
+          ? `Ⓜ️ ${name}`
+          : `✨ ${name}`;
 
         if (treeView.title === nameWithEmoji) {
           return;
@@ -149,6 +174,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
         treeView.title = nameWithEmoji;
         provider.setLabel(nameWithEmoji);
+
+        statusBarItem.text = nameWithEmoji;
+        statusBarItem.tooltip = (rawName === 'main' || rawName === 'master')
+          ? 'Pull with prune'
+          : 'Switch to main/master branch';
+        statusBarItem.show();
 
         if (rawName === 'main' || rawName === 'master') {
           if (treeView.visible) {
@@ -159,6 +190,8 @@ export async function activate(context: vscode.ExtensionContext) {
         } else {
           await treeView.reveal(nameWithEmoji, { expand: true, select: false, focus: false });
         }
+      } else {
+        statusBarItem.hide();
       }
     }
   }
