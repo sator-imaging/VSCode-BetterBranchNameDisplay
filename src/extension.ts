@@ -6,8 +6,6 @@ const UNKNOWN: string = '<UNKNOWN>';
 
 const DISPOSABLES: Set<vscode.Disposable> = new Set<vscode.Disposable>();
 
-// export function deactivate() { }
-
 export async function activate(context: vscode.ExtensionContext) {
   let activeRepo: Repository | undefined;
 
@@ -26,7 +24,6 @@ export async function activate(context: vscode.ExtensionContext) {
   }
 
   class Provider implements vscode.TreeDataProvider<string> {
-    // members required for dynamic update
     private _onDidChange = new vscode.EventEmitter<void>();
     readonly onDidChangeTreeData = this._onDidChange.event;
 
@@ -35,25 +32,23 @@ export async function activate(context: vscode.ExtensionContext) {
 
     constructor() {
       const item = new vscode.TreeItem(UNKNOWN);
-      item.collapsibleState = vscode.TreeItemCollapsibleState.None;  // auto-fit
-      // item.iconPath = new vscode.ThemeIcon('git-branch');
+      item.collapsibleState = vscode.TreeItemCollapsibleState.None;
       this.treeItem = item;
     }
 
     getTreeItem(element: string): vscode.TreeItem {
-      if (element !== this.branchName) {
-        this.branchName = element;
-        this.treeItem.label = element;
-      }
+      this.treeItem.label = element;
+      this.treeItem.command = {
+        command: 'betterBranchNameDisplay.switchToMain',
+        title: 'Switch to main/master'
+      };
       return this.treeItem;
     }
 
     getChildren(element?: string): string[] {
-      // NOTE: Always returns empty. When returning branch name,
-      //       extension will show unnecessary duplicate text as a tree view item.
-      // if (!element && this.branchName !== UNKNOWN) {
-      //   return [this.branchName];
-      // }
+      if (!element && this.branchName !== UNKNOWN) {
+        return [this.branchName];
+      }
       return [];
     }
 
@@ -66,8 +61,8 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     setLabel(label: string) {
-      this.getTreeItem(label);
-      this._onDidChange.fire();  // update UI automatically
+      this.branchName = label;
+      this._onDidChange.fire();
     }
   }
 
@@ -77,12 +72,9 @@ export async function activate(context: vscode.ExtensionContext) {
   });
 
   treeView.title = UNKNOWN;
-  treeView.message = "👆 Current branch  Ⓜ️ Switch to main";
+  treeView.message = "👆 Current branch  Ⓜ Switch to main";
 
-  const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-  statusBarItem.command = 'betterBranchNameDisplay.switchToMain';
-
-  context.subscriptions.push(treeView, statusBarItem);
+  context.subscriptions.push(treeView);
 
   context.subscriptions.push(vscode.commands.registerCommand('betterBranchNameDisplay.switchToMain', async () => {
     if (!activeRepo) {
@@ -165,8 +157,12 @@ export async function activate(context: vscode.ExtensionContext) {
       const name = rawName?.replace(/\//g, ' / ');
       if (name) {
         const nameWithEmoji = (rawName === 'main' || rawName === 'master')
-          ? `Ⓜ️ ${name}`
+          ? `Ⓜ ${name}`
           : `✨ ${name}`;
+
+        (repo.inputBox as any).placeholder = `${nameWithEmoji}  -  Current branch`;
+
+        updateWindowTitle(nameWithEmoji);
 
         if (treeView.title === nameWithEmoji) {
           return;
@@ -174,12 +170,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
         treeView.title = nameWithEmoji;
         provider.setLabel(nameWithEmoji);
-
-        statusBarItem.text = nameWithEmoji;
-        statusBarItem.tooltip = (rawName === 'main' || rawName === 'master')
-          ? 'Pull with prune'
-          : 'Switch to main/master branch';
-        statusBarItem.show();
 
         if (rawName === 'main' || rawName === 'master') {
           if (treeView.visible) {
@@ -190,9 +180,14 @@ export async function activate(context: vscode.ExtensionContext) {
         } else {
           await treeView.reveal(nameWithEmoji, { expand: true, select: false, focus: false });
         }
-      } else {
-        statusBarItem.hide();
       }
     }
+  }
+
+  function updateWindowTitle(branchWithEmoji: string) {
+    const config = vscode.workspace.getConfiguration('window');
+    const prefix = `${branchWithEmoji} - `;
+    const baseTitle = "${activeEditorShort}${separator}${rootName}${separator}${appName}";
+    config.update('title', prefix + baseTitle, vscode.ConfigurationTarget.Workspace);
   }
 }
