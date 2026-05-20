@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.5.0...v1.6.0) (2026-05-20)
+
+
+### Features
+
+* Make in-panel actions clickable in Better Branch Name Display ([#35](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/issues/35)) ([187e8bb](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/187e8bb8ee88827b0931558cc68307400fd14b8b))
+
 ## [1.5.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.4.3...v1.5.0) (2026-05-20)
 
 
