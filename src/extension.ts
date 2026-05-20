@@ -45,7 +45,7 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     getChildren(element?: string): string[] {
-      if (!element && activeRepo) {
+      if (!element) {
         return [ACTION_SWITCH, ACTION_FETCH];
       }
       return [];
@@ -56,7 +56,7 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     refresh() {
-      this._onDidChange.fire();  // update UI automatically
+      // this._onDidChange.fire();
     }
   }
 
@@ -150,7 +150,6 @@ export async function activate(context: vscode.ExtensionContext) {
         }
 
         treeView.title = nameWithEmoji;
-        provider.refresh();
       }
     }
   }
