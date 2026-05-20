@@ -77,9 +77,22 @@ export async function activate(context: vscode.ExtensionContext) {
   });
 
   treeView.title = UNKNOWN;
-  treeView.message = "👆 Current branch  Ⓜ️ Switch to main";
+  treeView.message = "👆 Current branch  Ⓜ️ Switch to main  🧹 Fetch (Prune)";
 
   context.subscriptions.push(treeView);
+
+  context.subscriptions.push(vscode.commands.registerCommand('betterBranchNameDisplay.fetchPrune', async () => {
+    if (!activeRepo) {
+      return;
+    }
+
+    try {
+      await activeRepo.fetch({ prune: true });
+    } catch (e: any) {
+      const message = `Failed to fetch (prune).\n\n${e.message || e}`;
+      vscode.window.showErrorMessage(message, { modal: true });
+    }
+  }));
 
   context.subscriptions.push(vscode.commands.registerCommand('betterBranchNameDisplay.switchToMain', async () => {
     if (!activeRepo) {

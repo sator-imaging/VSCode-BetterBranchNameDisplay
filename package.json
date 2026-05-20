@@ -43,12 +43,22 @@
         "command": "betterBranchNameDisplay.switchToMain",
         "title": "Ⓜ️",
         "tooltip": "Switch to main/master branch"
+      },
+      {
+        "command": "betterBranchNameDisplay.fetchPrune",
+        "title": "🧹",
+        "tooltip": "Fetch (Prune)"
       }
     ],
     "menus": {
       "view/title": [
         {
           "command": "betterBranchNameDisplay.switchToMain",
+          "when": "view == betterBranchNameDisplayView",
+          "group": "navigation"
+        },
+        {
+          "command": "betterBranchNameDisplay.fetchPrune",
           "when": "view == betterBranchNameDisplayView",
           "group": "navigation"
         }
