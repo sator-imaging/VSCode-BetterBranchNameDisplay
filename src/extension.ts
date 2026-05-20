@@ -41,6 +41,17 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     getTreeItem(element: string): vscode.TreeItem {
+      if (element === 'switchToMain') {
+        const item = new vscode.TreeItem("Ⓜ️ Switch to main");
+        item.command = { title: item.label as string, command: 'betterBranchNameDisplay.switchToMain' };
+        return item;
+      }
+      if (element === 'fetchPrune') {
+        const item = new vscode.TreeItem("🧹 Fetch (Prune)");
+        item.command = { title: item.label as string, command: 'betterBranchNameDisplay.fetchPrune' };
+        return item;
+      }
+
       if (element !== this.branchName) {
         this.branchName = element;
         this.treeItem.label = element;
@@ -49,6 +60,9 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     getChildren(element?: string): string[] {
+      if (!element) {
+        return ['switchToMain', 'fetchPrune'];
+      }
       // NOTE: Always returns empty. When returning branch name,
       //       extension will show unnecessary duplicate text as a tree view item.
       // if (!element && this.branchName !== UNKNOWN) {
@@ -77,7 +91,7 @@ export async function activate(context: vscode.ExtensionContext) {
   });
 
   treeView.title = UNKNOWN;
-  treeView.message = "👆 Current branch  Ⓜ️ Switch to main  🧹 Fetch (Prune)";
+  treeView.message = "👆 Current branch";
 
   context.subscriptions.push(treeView);
 
