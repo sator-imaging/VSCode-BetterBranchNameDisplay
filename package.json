@@ -41,7 +41,7 @@
     "commands": [
       {
         "command": "betterBranchNameDisplay.switchToMain",
-        "title": "Ⓜ️",
+        "title": "Ⓜ",
         "tooltip": "Switch to main/master branch"
       }
     ],
@@ -50,6 +50,12 @@
         {
           "command": "betterBranchNameDisplay.switchToMain",
           "when": "view == betterBranchNameDisplayView",
+          "group": "navigation"
+        }
+      ],
+      "scm/title": [
+        {
+          "command": "betterBranchNameDisplay.switchToMain",
           "group": "navigation"
         }
       ]

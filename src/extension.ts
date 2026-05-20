@@ -6,6 +6,8 @@ const UNKNOWN: string = '<UNKNOWN>';
 
 const DISPOSABLES: Set<vscode.Disposable> = new Set<vscode.Disposable>();
 
+// export function deactivate() { }
+
 export async function activate(context: vscode.ExtensionContext) {
   let activeRepo: Repository | undefined;
 
@@ -24,6 +26,7 @@ export async function activate(context: vscode.ExtensionContext) {
   }
 
   class Provider implements vscode.TreeDataProvider<string> {
+    // members required for dynamic update
     private _onDidChange = new vscode.EventEmitter<void>();
     readonly onDidChangeTreeData = this._onDidChange.event;
 
@@ -32,20 +35,26 @@ export async function activate(context: vscode.ExtensionContext) {
 
     constructor() {
       const item = new vscode.TreeItem(UNKNOWN);
-      item.collapsibleState = vscode.TreeItemCollapsibleState.None;
+      item.collapsibleState = vscode.TreeItemCollapsibleState.None;  // auto-fit
+      // item.iconPath = new vscode.ThemeIcon('git-branch');
       this.treeItem = item;
     }
 
     getTreeItem(element: string): vscode.TreeItem {
-      this.treeItem.label = element;
-      this.treeItem.command = {
-        command: 'betterBranchNameDisplay.switchToMain',
-        title: 'Switch to main/master'
-      };
+      if (element !== this.branchName) {
+        this.branchName = element;
+        this.treeItem.label = element;
+        this.treeItem.command = {
+          command: 'betterBranchNameDisplay.switchToMain',
+          title: 'Switch to main/master'
+        };
+      }
       return this.treeItem;
     }
 
     getChildren(element?: string): string[] {
+      // NOTE: Always returns empty. When returning branch name,
+      //       extension will show unnecessary duplicate text as a tree view item.
       if (!element && this.branchName !== UNKNOWN) {
         return [this.branchName];
       }
@@ -61,8 +70,8 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     setLabel(label: string) {
-      this.branchName = label;
-      this._onDidChange.fire();
+      this.getTreeItem(label);
+      this._onDidChange.fire();  // update UI automatically
     }
   }
 
@@ -160,10 +169,6 @@ export async function activate(context: vscode.ExtensionContext) {
           ? `Ⓜ ${name}`
           : `✨ ${name}`;
 
-        (repo.inputBox as any).placeholder = `${nameWithEmoji}  -  Current branch`;
-
-        updateWindowTitle(nameWithEmoji);
-
         if (treeView.title === nameWithEmoji) {
           return;
         }
@@ -182,12 +187,5 @@ export async function activate(context: vscode.ExtensionContext) {
         }
       }
     }
-  }
-
-  function updateWindowTitle(branchWithEmoji: string) {
-    const config = vscode.workspace.getConfiguration('window');
-    const prefix = `${branchWithEmoji} - `;
-    const baseTitle = "${activeEditorShort}${separator}${rootName}${separator}${appName}";
-    config.update('title', prefix + baseTitle, vscode.ConfigurationTarget.Workspace);
   }
 }
