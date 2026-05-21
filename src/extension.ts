@@ -17,7 +17,7 @@ FetchPruneItem.command = { title: FetchPruneItem.label as string, command: 'bett
 const ConventionalCommitsItem = new vscode.TreeItem("🔀 Conventional Commits");
 ConventionalCommitsItem.tooltip = new vscode.MarkdownString(`\
 # \`<type>(<optional-scope>): <subject>\`
-- \`type\`: See below.
+- \`type\`: See tree view.
 - \`scope\`: A scope may be provided to a commit's type, to provide additional contextual information and is contained within parenthesis.
   - e.g., \`feat(parser): add ability to parse arrays\`.
 - \`!\`: Append a \`!\` after the type/scope, introduces a breaking API change. A BREAKING CHANGE can be part of commits of any \`type\`.
@@ -27,7 +27,7 @@ ConventionalCommitsItem.tooltip = new vscode.MarkdownString(`\
   - don't capitalize the first letter
   - no dot (.) at the end`);
 
-const ConventionalCommitsTypesItem = new vscode.TreeItem("　 　 fix, feat, build, ci, docs, perf, refactor, test, chore, style, revert");
+const ConventionalCommitsTypesItem = new vscode.TreeItem("　 　 fix, feat, build, ci, test, docs, refactor, perf, style, chore, revert");
 
 export async function activate(context: vscode.ExtensionContext) {
   let activeRepo: Repository | undefined;
