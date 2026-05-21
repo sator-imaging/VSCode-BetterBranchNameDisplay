@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.6.0...v1.7.0) (2026-05-21)
+
+
+### Features
+
+* add conventional commits cheatsheet ([f23d705](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/f23d7053319c1305bd0c7f6d6003dab5a356a234))
+
 ## [1.6.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.5.0...v1.6.0) (2026-05-20)
 
 
