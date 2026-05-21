@@ -14,10 +14,14 @@ SwitchToMainItem.command = { title: SwitchToMainItem.label as string, command: '
 const FetchPruneItem = new vscode.TreeItem("🧹 Fetch (Prune)");
 FetchPruneItem.command = { title: FetchPruneItem.label as string, command: 'betterBranchNameDisplay.fetchPrune' };
 
+const WarningItem = new vscode.TreeItem("⚠️ Not on main / master");
+WarningItem.command = { title: WarningItem.label as string, command: 'betterBranchNameDisplay.warning' };
+
 const ConventionalCommitsItem = new vscode.TreeItem("🔀 Conventional Commits");
+ConventionalCommitsItem.command = { title: ConventionalCommitsItem.label as string, command: 'betterBranchNameDisplay.conventionalCommits' };
 ConventionalCommitsItem.tooltip = new vscode.MarkdownString(`\
 # \`<type>(<optional-scope>): <subject>\`
-- \`type\`: See tree view.
+- \`type\`: fix, feat, build, ci, test, docs, refactor, perf, style, chore, revert.
 - \`scope\`: A scope may be provided to a commit's type, to provide additional contextual information and is contained within parenthesis.
   - e.g., \`feat(parser): add ability to parse arrays\`.
 - \`!\`: Append a \`!\` after the type/scope, introduces a breaking API change. A BREAKING CHANGE can be part of commits of any \`type\`.
@@ -53,6 +57,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     private readonly treeItem: vscode.TreeItem;
     private branchName: string = UNKNOWN;
+    private isNotMain: boolean = false;
 
     constructor() {
       const item = new vscode.TreeItem(UNKNOWN);
@@ -62,6 +67,9 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     getTreeItem(element: string): vscode.TreeItem {
+      if (element === 'warning') {
+        return WarningItem;
+      }
       if (element === 'switchToMain') {
         return SwitchToMainItem;
       }
@@ -84,7 +92,11 @@ export async function activate(context: vscode.ExtensionContext) {
 
     getChildren(element?: string): string[] {
       if (!element) {
-        return ['switchToMain', 'fetchPrune', 'convTitle', 'convTypes'];
+        const items = ['switchToMain', 'fetchPrune', 'convTitle', 'convTypes'];
+        if (this.isNotMain) {
+          items.unshift('warning');
+        }
+        return items;
       }
       // NOTE: Always returns empty. When returning branch name,
       //       extension will show unnecessary duplicate text as a tree view item.
@@ -105,6 +117,13 @@ export async function activate(context: vscode.ExtensionContext) {
     setLabel(label: string) {
       this.getTreeItem(label);
       this._onDidChange.fire();  // update UI automatically
+    }
+
+    setIsNotMain(isNotMain: boolean) {
+      if (this.isNotMain !== isNotMain) {
+        this.isNotMain = isNotMain;
+        this._onDidChange.fire();
+      }
     }
   }
 
@@ -148,6 +167,15 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   }));
 
+  context.subscriptions.push(vscode.commands.registerCommand('betterBranchNameDisplay.warning', async () => {
+    const message = "Current branch is NOT 'main' or 'master'.";
+    vscode.window.showInformationMessage(message, { modal: true });
+  }));
+
+  context.subscriptions.push(vscode.commands.registerCommand('betterBranchNameDisplay.conventionalCommits', async () => {
+    // No-op. Tooltip has all the information.
+  }));
+
   setupEvents();
 
   function setupEvents() {
@@ -189,7 +217,11 @@ export async function activate(context: vscode.ExtensionContext) {
       const rawName = repo.state.HEAD?.name;
       const name = rawName?.replace(/\//g, ' / ');
       if (name) {
-        const nameWithEmoji = (rawName === 'main' || rawName === 'master')
+        const isNotMain = rawName !== 'main' && rawName !== 'master';
+        vscode.commands.executeCommand('setContext', 'betterBranchNameDisplay.isNotMain', isNotMain);
+        provider.setIsNotMain(isNotMain);
+
+        const nameWithEmoji = !isNotMain
           ? name
           : `✨ ${name} ✨`;
 
@@ -200,7 +232,7 @@ export async function activate(context: vscode.ExtensionContext) {
         treeView.title = nameWithEmoji;
         provider.setLabel(nameWithEmoji);
 
-        if (rawName === 'main' || rawName === 'master') {
+        if (!isNotMain) {
           if (treeView.visible) {
             await new Promise(resolve => setTimeout(resolve, 310));
             await vscode.commands.executeCommand(`${ID}.focus`);
