@@ -8,6 +8,19 @@ const DISPOSABLES: Set<vscode.Disposable> = new Set<vscode.Disposable>();
 
 // export function deactivate() { }
 
+const SwitchToMainItem = new vscode.TreeItem("Ⓜ️ Switch to main");
+SwitchToMainItem.command = { title: SwitchToMainItem.label as string, command: 'betterBranchNameDisplay.switchToMain' };
+
+const FetchPruneItem = new vscode.TreeItem("🧹 Fetch (Prune)");
+FetchPruneItem.command = { title: FetchPruneItem.label as string, command: 'betterBranchNameDisplay.fetchPrune' };
+
+const ConventionalCommitsItem = new vscode.TreeItem("🔀 Conventional Commits");
+ConventionalCommitsItem.tooltip = new vscode.MarkdownString(`\
+\`<type>[optional scope]: <description>\`  
+> feat(api)!: \`!\`-ending prefix indicates breaking change`);
+
+const ConventionalCommitsTypesItem = new vscode.TreeItem("　   fix, feat, build, ci, docs, perf, refactor, test, chore, style, revert");
+
 export async function activate(context: vscode.ExtensionContext) {
   let activeRepo: Repository | undefined;
 
@@ -42,23 +55,16 @@ export async function activate(context: vscode.ExtensionContext) {
 
     getTreeItem(element: string): vscode.TreeItem {
       if (element === 'switchToMain') {
-        const item = new vscode.TreeItem("Ⓜ️ Switch to main");
-        item.command = { title: item.label as string, command: 'betterBranchNameDisplay.switchToMain' };
-        return item;
+        return SwitchToMainItem;
       }
       if (element === 'fetchPrune') {
-        const item = new vscode.TreeItem("🧹 Fetch (Prune)");
-        item.command = { title: item.label as string, command: 'betterBranchNameDisplay.fetchPrune' };
-        return item;
+        return FetchPruneItem;
       }
       if (element === 'convTitle') {
-        return new vscode.TreeItem("🔀 Conventional Commits");
+        return ConventionalCommitsItem;
       }
-      if (element === 'convTypes1') {
-        return new vscode.TreeItem("   fix:, feat:, feat!:, fix(optional-scope):");
-      }
-      if (element === 'convTypes2') {
-        return new vscode.TreeItem("   build, ci, docs, perf, refactor, test, chore, style, revert");
+      if (element === 'convTypes') {
+        return ConventionalCommitsTypesItem;
       }
 
       if (element !== this.branchName) {
@@ -70,7 +76,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     getChildren(element?: string): string[] {
       if (!element) {
-        return ['switchToMain', 'fetchPrune', 'convTitle', 'convTypes1', 'convTypes2'];
+        return ['switchToMain', 'fetchPrune', 'convTitle', 'convTypes'];
       }
       // NOTE: Always returns empty. When returning branch name,
       //       extension will show unnecessary duplicate text as a tree view item.
