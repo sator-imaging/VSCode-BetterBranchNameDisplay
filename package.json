@@ -62,6 +62,18 @@
           "when": "view == betterBranchNameDisplayView",
           "group": "navigation"
         }
+      ],
+      "scm/title": [
+        {
+          "command": "betterBranchNameDisplay.switchToMain",
+          "when": "scmProvider == git",
+          "group": "navigation"
+        },
+        {
+          "command": "betterBranchNameDisplay.fetchPrune",
+          "when": "scmProvider == git",
+          "group": "navigation"
+        }
       ]
     },
     "views": {
