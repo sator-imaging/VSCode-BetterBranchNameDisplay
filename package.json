@@ -67,12 +67,12 @@
         {
           "command": "betterBranchNameDisplay.switchToMain",
           "when": "scmProvider == git",
-          "group": "navigation"
+          "group": "navigation@310"
         },
         {
           "command": "betterBranchNameDisplay.fetchPrune",
           "when": "scmProvider == git",
-          "group": "navigation"
+          "group": "navigation@310"
         }
       ]
     },
