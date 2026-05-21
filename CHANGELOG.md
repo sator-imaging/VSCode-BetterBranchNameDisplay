@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.7.4...v1.8.0) (2026-05-21)
+
+
+### Features
+
+* Add "Switch to Main" and "Fetch (Prune)" to main SCM view ([#43](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/issues/43)) ([0620a05](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/0620a05b9a28289c370793541d48a55deb2bc7f1))
+
 ## [1.7.4](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.7.3...v1.7.4) (2026-05-21)
 
 
