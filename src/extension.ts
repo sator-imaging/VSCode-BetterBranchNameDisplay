@@ -18,8 +18,14 @@ const ConventionalCommitsItem = new vscode.TreeItem("🔀 Conventional Commits")
 ConventionalCommitsItem.tooltip = new vscode.MarkdownString(`\
 # \`<type>(<optional-scope>): <subject>\`
 - \`type\`: See below.
-- \'scope\': A scope may be provided to a commit's type, to provide additional contextual information and is contained within parenthesis, e.g., \`feat(parser): add ability to parse arrays\`.
-- \`!\`: Append a \`!\` after the type/scope, introduces a breaking API change. A BREAKING CHANGE can be part of commits of any \`type\`.`);
+- \`scope\`: A scope may be provided to a commit's type, to provide additional contextual information and is contained within parenthesis.
+  - e.g., \`feat(parser): add ability to parse arrays\`.
+- \`!\`: Append a \`!\` after the type/scope, introduces a breaking API change. A BREAKING CHANGE can be part of commits of any \`type\`.
+  - e.g., \`feat(api)!: breaking change\`
+- \`subject\`: The subject contains a succinct description of the change:
+  - use the imperative, present tense: "change" not "changed" nor "changes"
+  - don't capitalize the first letter
+  - no dot (.) at the end`);
 
 const ConventionalCommitsTypesItem = new vscode.TreeItem("　 　 fix, feat, build, ci, docs, perf, refactor, test, chore, style, revert");
 
