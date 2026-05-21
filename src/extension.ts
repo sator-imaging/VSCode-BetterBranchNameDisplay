@@ -51,6 +51,15 @@ export async function activate(context: vscode.ExtensionContext) {
         item.command = { title: item.label as string, command: 'betterBranchNameDisplay.fetchPrune' };
         return item;
       }
+      if (element === 'convTitle') {
+        return new vscode.TreeItem("🔀 Conventional Commits");
+      }
+      if (element === 'convTypes1') {
+        return new vscode.TreeItem("   fix:, feat:, feat!:, fix(optional-scope):");
+      }
+      if (element === 'convTypes2') {
+        return new vscode.TreeItem("   build, ci, docs, perf, refactor, test, chore, style, revert");
+      }
 
       if (element !== this.branchName) {
         this.branchName = element;
@@ -61,7 +70,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     getChildren(element?: string): string[] {
       if (!element) {
-        return ['switchToMain', 'fetchPrune'];
+        return ['switchToMain', 'fetchPrune', 'convTitle', 'convTypes1', 'convTypes2'];
       }
       // NOTE: Always returns empty. When returning branch name,
       //       extension will show unnecessary duplicate text as a tree view item.
