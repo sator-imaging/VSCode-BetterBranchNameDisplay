@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.4](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.7.3...v1.7.4) (2026-05-21)
+
+
+### Bug Fixes
+
+* cheatsheet ([7a5f8d2](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/7a5f8d2395711b6808d3c36321d2dd78633c69eb))
+
 ## [1.7.3](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.7.2...v1.7.3) (2026-05-21)
 
 
