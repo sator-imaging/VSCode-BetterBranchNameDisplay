@@ -21,7 +21,7 @@ ConventionalCommitsItem.tooltip = new vscode.MarkdownString(`\
 - \'scope\': A scope may be provided to a commit's type, to provide additional contextual information and is contained within parenthesis, e.g., \`feat(parser): add ability to parse arrays\`.
 - \`!\`: Append a \`!\` after the type/scope, introduces a breaking API change. A BREAKING CHANGE can be part of commits of any \`type\`.`);
 
-const ConventionalCommitsTypesItem = new vscode.TreeItem("　   fix, feat, build, ci, docs, perf, refactor, test, chore, style, revert");
+const ConventionalCommitsTypesItem = new vscode.TreeItem("　 　 fix, feat, build, ci, docs, perf, refactor, test, chore, style, revert");
 
 export async function activate(context: vscode.ExtensionContext) {
   let activeRepo: Repository | undefined;
