@@ -52,13 +52,13 @@ export async function activate(context: vscode.ExtensionContext) {
         return item;
       }
       if (element === 'convTitle') {
-        return new vscode.TreeItem("Conventional Commits");
+        return new vscode.TreeItem("🔀 Conventional Commits");
       }
       if (element === 'convTypes1') {
-        return new vscode.TreeItem("   fix:, feat:, feat!:, feat(optional-scope):");
+        return new vscode.TreeItem("   fix:, feat:, feat!:, fix(optional-scope):");
       }
       if (element === 'convTypes2') {
-        return new vscode.TreeItem("   build, ci, docs, perf, refactor, test");
+        return new vscode.TreeItem("   build, ci, docs, perf, refactor, test, chore, style, revert");
       }
 
       if (element !== this.branchName) {
