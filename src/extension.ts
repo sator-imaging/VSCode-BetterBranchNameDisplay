@@ -4,6 +4,8 @@ import { GitExtension, Repository } from './api/git';
 const ID: string = 'betterBranchNameDisplayView';
 const UNKNOWN: string = '<UNKNOWN>';
 
+const CONVENTIONAL_COMMITS_TYPES: string = "fix, feat, build, ci, test, docs, refactor, perf, style, chore, revert";
+
 const DISPOSABLES: Set<vscode.Disposable> = new Set<vscode.Disposable>();
 
 // export function deactivate() { }
@@ -15,9 +17,10 @@ const FetchPruneItem = new vscode.TreeItem("🧹 Fetch (Prune)");
 FetchPruneItem.command = { title: FetchPruneItem.label as string, command: 'betterBranchNameDisplay.fetchPrune' };
 
 const ConventionalCommitsItem = new vscode.TreeItem("🔀 Conventional Commits");
+ConventionalCommitsItem.command = { title: ConventionalCommitsItem.label as string, command: 'betterBranchNameDisplay.conventionalCommits' };
 ConventionalCommitsItem.tooltip = new vscode.MarkdownString(`\
 # \`<type>(<optional-scope>): <subject>\`
-- \`type\`: See tree view.
+- \`type\`: ${CONVENTIONAL_COMMITS_TYPES}.
 - \`scope\`: A scope may be provided to a commit's type, to provide additional contextual information and is contained within parenthesis.
   - e.g., \`feat(parser): add ability to parse arrays\`.
 - \`!\`: Append a \`!\` after the type/scope, introduces a breaking API change. A BREAKING CHANGE can be part of commits of any \`type\`.
@@ -27,7 +30,7 @@ ConventionalCommitsItem.tooltip = new vscode.MarkdownString(`\
   - don't capitalize the first letter
   - no dot (.) at the end`);
 
-const ConventionalCommitsTypesItem = new vscode.TreeItem("　 　 fix, feat, build, ci, test, docs, refactor, perf, style, chore, revert");
+const ConventionalCommitsTypesItem = new vscode.TreeItem(`　 　 ${CONVENTIONAL_COMMITS_TYPES}`);
 
 export async function activate(context: vscode.ExtensionContext) {
   let activeRepo: Repository | undefined;
@@ -148,6 +151,14 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   }));
 
+  context.subscriptions.push(vscode.commands.registerCommand('betterBranchNameDisplay.warning', async () => {
+    // No-op. Tooltip has all the information.
+  }));
+
+  context.subscriptions.push(vscode.commands.registerCommand('betterBranchNameDisplay.conventionalCommits', async () => {
+    // No-op. Tooltip has all the information.
+  }));
+
   setupEvents();
 
   function setupEvents() {
@@ -189,7 +200,10 @@ export async function activate(context: vscode.ExtensionContext) {
       const rawName = repo.state.HEAD?.name;
       const name = rawName?.replace(/\//g, ' / ');
       if (name) {
-        const nameWithEmoji = (rawName === 'main' || rawName === 'master')
+        const isNotMain = rawName !== 'main' && rawName !== 'master';
+        vscode.commands.executeCommand('setContext', 'betterBranchNameDisplay.isNotMain', isNotMain);
+
+        const nameWithEmoji = !isNotMain
           ? name
           : `✨ ${name} ✨`;
 
@@ -200,7 +214,7 @@ export async function activate(context: vscode.ExtensionContext) {
         treeView.title = nameWithEmoji;
         provider.setLabel(nameWithEmoji);
 
-        if (rawName === 'main' || rawName === 'master') {
+        if (!isNotMain) {
           if (treeView.visible) {
             await new Promise(resolve => setTimeout(resolve, 310));
             await vscode.commands.executeCommand(`${ID}.focus`);
