@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.10.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.9.1...v1.10.0) (2026-05-22)
+
+
+### Features
+
+* Add Cleanup feature to Fetch (Prune) command ([#54](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/issues/54)) ([dd6f8af](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/dd6f8af3486e29bd1ec15aed350e8aac0339a9cc))
+
+
+### Bug Fixes
+
+* navigation icons ([947a0f6](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/947a0f63243e19f7cc945ef732467e4f35c3697d))
+
 ## [1.9.1](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.9.0...v1.9.1) (2026-05-22)
 
 
