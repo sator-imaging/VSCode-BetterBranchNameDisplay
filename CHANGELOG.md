@@ -5,7 +5,6 @@
 
 ### Features
 
-* Add Cleanup feature to Fetch (Prune) command ([#54](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/issues/54)) ([d8a4bfa](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/d8a4bfa1aaa0f6824a81986f2318488349f743cc))
 * Add Cleanup feature to Fetch (Prune) command ([#54](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/issues/54)) ([dd6f8af](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/dd6f8af3486e29bd1ec15aed350e8aac0339a9cc))
 
 
