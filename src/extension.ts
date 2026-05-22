@@ -160,8 +160,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
             if (!upstreamExists) {
               try {
-                // deleteBranch(name, force) -> false means don't delete if not merged
-                await activeRepo.deleteBranch(ref.name, false);
+                const force = false; // false means don't delete if not merged
+                await activeRepo.deleteBranch(ref.name, force);
                 deleted.push(ref.name);
               } catch (e) {
                 failed.push(ref.name);
