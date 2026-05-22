@@ -83,12 +83,14 @@
         {
           "command": "betterBranchNameDisplay.switchToMain",
           "when": "scmProvider == git",
-          "group": "navigation@310"
+          "group": "navigation@310",
+          "tooltip": "Switch to main/master branch"
         },
         {
           "command": "betterBranchNameDisplay.fetchPrune",
           "when": "scmProvider == git",
-          "group": "navigation@310"
+          "group": "navigation@310",
+          "tooltip": "Fetch (Prune)"
         },
         {
           "command": "betterBranchNameDisplay.conventionalCommits",
