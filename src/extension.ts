@@ -126,10 +126,65 @@ export async function activate(context: vscode.ExtensionContext) {
       return;
     }
 
+    const FETCH_ONLY = "Fetch (Prune) Only";
+    const CLEANUP = "Cleanup Local Branches";
+    const selection = await vscode.window.showInformationMessage(
+      "Fetch (Prune) updates remote-tracking branches and removes those that no longer exist on remote repositories.\n\n[ Experimental ]\nCleanup additionally deletes local branches that are 'gone' on the remote (only if they are already merged).\n* Cleanup cannot be undone.",
+      { modal: true },
+      FETCH_ONLY,
+      CLEANUP
+    );
+
+    if (!selection) {
+      return;
+    }
+
     try {
       await activeRepo.fetch({ prune: true });
+
+      if (selection === CLEANUP) {
+        const localBranches = await activeRepo.getBranches({ remote: false });
+        const currentBranch = activeRepo.state.HEAD?.name;
+        const deleted: string[] = [];
+        const failed: string[] = [];
+
+        for (const ref of localBranches) {
+          if (!ref.name || ref.name === currentBranch) {
+            continue;
+          }
+
+          const branch = await activeRepo.getBranch(ref.name);
+          if (branch.upstream) {
+            const upstreamName = `${branch.upstream.remote}/${branch.upstream.name}`;
+            const upstreamExists = activeRepo.state.refs.some(r => r.name === upstreamName);
+
+            if (!upstreamExists) {
+              try {
+                const force = false; // false means don't delete if not merged
+                await activeRepo.deleteBranch(ref.name, force);
+                deleted.push(ref.name);
+              } catch (e) {
+                failed.push(ref.name);
+              }
+            }
+          }
+        }
+
+        if (deleted.length > 0 || failed.length > 0) {
+          let msg = "";
+          if (deleted.length > 0) {
+            msg += `Deleted branches: ${deleted.join(', ')}\n`;
+          }
+          if (failed.length > 0) {
+            msg += `Failed to delete (likely not merged): ${failed.join(', ')}`;
+          }
+          vscode.window.showInformationMessage(msg.trim());
+        } else {
+          vscode.window.showInformationMessage("No 'gone' local branches found to cleanup.");
+        }
+      }
     } catch (e: any) {
-      const message = `Failed to fetch (prune).\n\n${e.message || e}`;
+      const message = `Failed to fetch (prune) or cleanup.\n\n${e.message || e}`;
       vscode.window.showErrorMessage(message, { modal: true });
     }
   }));
