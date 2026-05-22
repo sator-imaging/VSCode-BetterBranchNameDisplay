@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.8.0...v1.9.0) (2026-05-22)
+
+
+### Features
+
+* Add warning and Conventional Commits icons to SCM view ([#49](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/issues/49)) ([4391d66](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/commit/4391d66ee96e7b5dd576b122b7fecb56ac0d460c))
+
 ## [1.8.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.7.4...v1.8.0) (2026-05-21)
 
 
