@@ -129,7 +129,7 @@ export async function activate(context: vscode.ExtensionContext) {
     const FETCH_ONLY = "Fetch (Prune) Only";
     const CLEANUP = "Cleanup Local Branches";
     const selection = await vscode.window.showInformationMessage(
-      "[ Experimental ]\nFetch (Prune) updates remote-tracking branches and removes those that no longer exist on remote repositories.\n\nCleanup additionally deletes local branches that are 'gone' on the remote (only if they are already merged). This action cannot be undone.",
+      "Fetch (Prune) updates remote-tracking branches and removes those that no longer exist on remote repositories.\n\n[ Experimental ]\nCleanup additionally deletes local branches that are 'gone' on the remote (only if they are already merged). This action cannot be undone.",
       { modal: true },
       FETCH_ONLY,
       CLEANUP
