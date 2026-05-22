@@ -41,23 +41,23 @@
     "commands": [
       {
         "command": "betterBranchNameDisplay.switchToMain",
-        "title": "Ⓜ️",
-        "tooltip": "Switch to main/master branch"
+        "shortTitle": "Ⓜ️",
+        "title": "Switch to main/master branch"
       },
       {
         "command": "betterBranchNameDisplay.fetchPrune",
-        "title": "🧹",
-        "tooltip": "Fetch (Prune)"
+        "shortTitle": "🧹",
+        "title": "Fetch (Prune)"
       },
       {
         "command": "betterBranchNameDisplay.warning",
-        "title": "⚠️",
-        "tooltip": "Not on main/master branch"
+        "shortTitle": "⚠️",
+        "title": "Not on main/master branch"
       },
       {
         "command": "betterBranchNameDisplay.conventionalCommits",
-        "title": "🔀",
-        "tooltip": "Conventional Commits: fix, feat, build, ci, test, docs, refactor, perf, style, chore, revert"
+        "shortTitle": "🔀",
+        "title": "Conventional Commits: fix, feat, build, ci, test, docs, refactor, perf, style, chore, revert"
       }
     ],
     "menus": {
@@ -77,26 +77,22 @@
         {
           "command": "betterBranchNameDisplay.warning",
           "when": "scmProvider == git && betterBranchNameDisplay.isNotMain",
-          "group": "notification@-1",
-          "tooltip": "Not on main/master branch"
+          "group": "notification@-1"
         },
         {
           "command": "betterBranchNameDisplay.switchToMain",
           "when": "scmProvider == git",
-          "group": "navigation@310",
-          "tooltip": "Switch to main/master branch"
+          "group": "navigation@310"
         },
         {
           "command": "betterBranchNameDisplay.fetchPrune",
           "when": "scmProvider == git",
-          "group": "navigation@310",
-          "tooltip": "Fetch (Prune)"
+          "group": "navigation@310"
         },
         {
           "command": "betterBranchNameDisplay.conventionalCommits",
           "when": "scmProvider == git",
-          "group": "navigation@310",
-          "tooltip": "Conventional Commits: fix, feat, build, ci, test, docs, refactor, perf, style, chore, revert"
+          "group": "navigation@310"
         }
       ]
     },
