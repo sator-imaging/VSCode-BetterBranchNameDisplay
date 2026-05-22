@@ -4,6 +4,8 @@ import { GitExtension, Repository } from './api/git';
 const ID: string = 'betterBranchNameDisplayView';
 const UNKNOWN: string = '<UNKNOWN>';
 
+const CONVENTIONAL_COMMITS_TYPES: string = "fix, feat, build, ci, test, docs, refactor, perf, style, chore, revert";
+
 const DISPOSABLES: Set<vscode.Disposable> = new Set<vscode.Disposable>();
 
 // export function deactivate() { }
@@ -18,7 +20,7 @@ const ConventionalCommitsItem = new vscode.TreeItem("🔀 Conventional Commits")
 ConventionalCommitsItem.command = { title: ConventionalCommitsItem.label as string, command: 'betterBranchNameDisplay.conventionalCommits' };
 ConventionalCommitsItem.tooltip = new vscode.MarkdownString(`\
 # \`<type>(<optional-scope>): <subject>\`
-- \`type\`: fix, feat, build, ci, test, docs, refactor, perf, style, chore, revert.
+- \`type\`: ${CONVENTIONAL_COMMITS_TYPES}.
 - \`scope\`: A scope may be provided to a commit's type, to provide additional contextual information and is contained within parenthesis.
   - e.g., \`feat(parser): add ability to parse arrays\`.
 - \`!\`: Append a \`!\` after the type/scope, introduces a breaking API change. A BREAKING CHANGE can be part of commits of any \`type\`.
@@ -28,7 +30,7 @@ ConventionalCommitsItem.tooltip = new vscode.MarkdownString(`\
   - don't capitalize the first letter
   - no dot (.) at the end`);
 
-const ConventionalCommitsTypesItem = new vscode.TreeItem("　 　 fix, feat, build, ci, test, docs, refactor, perf, style, chore, revert");
+const ConventionalCommitsTypesItem = new vscode.TreeItem(`　 　 ${CONVENTIONAL_COMMITS_TYPES}`);
 
 export async function activate(context: vscode.ExtensionContext) {
   let activeRepo: Repository | undefined;
