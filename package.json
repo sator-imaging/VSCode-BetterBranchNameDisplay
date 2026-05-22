@@ -63,11 +63,6 @@
     "menus": {
       "view/title": [
         {
-          "command": "betterBranchNameDisplay.warning",
-          "when": "view == betterBranchNameDisplayView && betterBranchNameDisplay.isNotMain",
-          "group": "navigation@-1"
-        },
-        {
           "command": "betterBranchNameDisplay.switchToMain",
           "when": "view == betterBranchNameDisplayView",
           "group": "navigation"
@@ -76,11 +71,6 @@
           "command": "betterBranchNameDisplay.fetchPrune",
           "when": "view == betterBranchNameDisplayView",
           "group": "navigation"
-        },
-        {
-          "command": "betterBranchNameDisplay.conventionalCommits",
-          "when": "view == betterBranchNameDisplayView",
-          "group": "navigation@310"
         }
       ],
       "scm/title": [
