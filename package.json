@@ -42,22 +42,22 @@
       {
         "command": "betterBranchNameDisplay.switchToMain",
         "shortTitle": "Ⓜ️",
-        "title": "Switch to main/master branch"
+        "title": "Ⓜ️ Switch to main/master branch"
       },
       {
         "command": "betterBranchNameDisplay.fetchPrune",
         "shortTitle": "🧹",
-        "title": "Fetch (Prune)"
+        "title": "🧹 Fetch (Prune) or Cleanup"
       },
       {
         "command": "betterBranchNameDisplay.warning",
         "shortTitle": "⚠️",
-        "title": "Not on main/master branch"
+        "title": "⚠️ Not on main/master branch"
       },
       {
         "command": "betterBranchNameDisplay.conventionalCommits",
         "shortTitle": "🔀",
-        "title": "Conventional Commits: fix, feat, build, ci, test, docs, refactor, perf, style, chore, revert"
+        "title": "🔀 Conventional Commits: fix, feat, build, ci, test, docs, refactor, perf, style, chore, revert"
       }
     ],
     "menus": {
@@ -77,22 +77,22 @@
         {
           "command": "betterBranchNameDisplay.warning",
           "when": "scmProvider == git && betterBranchNameDisplay.isNotMain",
-          "group": "notification@-1"
+          "group": "notification@-310"
         },
         {
-          "command": "betterBranchNameDisplay.switchToMain",
+          "command": "betterBranchNameDisplay.conventionalCommits",
           "when": "scmProvider == git",
           "group": "navigation@310"
         },
         {
           "command": "betterBranchNameDisplay.fetchPrune",
           "when": "scmProvider == git",
-          "group": "navigation@310"
+          "group": "navigation@311"
         },
         {
-          "command": "betterBranchNameDisplay.conventionalCommits",
+          "command": "betterBranchNameDisplay.switchToMain",
           "when": "scmProvider == git",
-          "group": "navigation@310"
+          "group": "navigation@312"
         }
       ]
     },
