@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.10.2](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/releases/tag/v1.10.2) (2026-05-23)
+
+### 🧹 Bug Fixes
+* fix: icon-group by @sator-imaging in https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/pull/58
+### 📚 Other Changes
+* [bot] Sync `.github` (20260523-034946) by @github-actions[bot] in https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/pull/57
+
+
+**Full Changelog**: https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.10.1...v1.10.2
+
+
 ## [1.10.1](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.10.0...v1.10.1) (2026-05-22)
 
 
