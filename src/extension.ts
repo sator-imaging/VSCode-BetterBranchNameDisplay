@@ -210,6 +210,12 @@ Cleanup cannot be undone.`,
         vscode.window.showErrorMessage(message, { modal: true });
       }
     }
+
+    const PULL_NOW = "Pull Now";
+    const selection = await vscode.window.showInformationMessage("Pull main branch?", PULL_NOW);
+    if (selection === PULL_NOW) {
+      await activeRepo.pull();
+    }
   }));
 
   context.subscriptions.push(vscode.commands.registerCommand('betterBranchNameDisplay.warning', async () => {
