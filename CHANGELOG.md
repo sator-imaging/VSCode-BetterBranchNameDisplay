@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.11.1](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/releases/tag/untagged-0669334dfb31a84742e8) (2026-05-24)
+
+### 📚 Other Changes
+* [bot] Changelog 1.11.0 (20260524-034726) by [@github-actions](https://github.com/github-actions)[bot] in [#82](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/pull/82)
+* [bot] Sync `.github` (20260524-035739) by [@github-actions](https://github.com/github-actions)[bot] in [#83](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/pull/83)
+* Remove force option and use non-modal error dialogs by [@google-labs-jules](https://github.com/google-labs-jules)[bot] in [#84](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/pull/84)
+* [bot] Sync `.github` (20260524-071003) by [@github-actions](https://github.com/github-actions)[bot] in [#85](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/pull/85)
+
+
+**Full Changelog**: https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.11.0...v1.11.1
+
+
 ## [1.11.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/releases/tag/v1.11.0) (2026-05-24)
 
 ### 🚀 Features
