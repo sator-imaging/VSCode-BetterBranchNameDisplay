@@ -18,10 +18,13 @@ on:
     inputs:
       auto-bump-version:
         type: string
-        required: true
+        required: false
+        description: |
+          Specify version for Auto Bump.
+          Leave empty to invoke Sync and Auto Changelog.
       auto-bump-args:
         type: string
-        required: true
+        required: false
         # DEBUG
         description: '**DEBUG**: NOT WORKING'
         default: csproj=GlobalPackageVersion
