@@ -214,7 +214,11 @@ Cleanup cannot be undone.`,
     const PULL_NOW = "Pull Now";
     const selection = await vscode.window.showInformationMessage("Pull main branch?", PULL_NOW);
     if (selection === PULL_NOW) {
-      await activeRepo.pull();
+      try {
+        await activeRepo.pull();
+      } catch (e: any) {
+        vscode.window.showErrorMessage(`Pull Now failed: ${e.message || e}`, { modal: true });
+      }
     }
   }));
 
