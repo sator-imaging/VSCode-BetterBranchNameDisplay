@@ -57,9 +57,9 @@ jobs:
   main:
     uses: sator-imaging/.github/.github/workflows/Auto-dot-github.yml@main
     with:
-      auto-bump-version: ${{ inputs.auto-bump-version }}
       # See above
-      auto-bump-args: csproj=DirectoryBuildPropsXmlTagName
+      auto-bump-args: $$$
+      auto-bump-version: ${{ inputs.auto-bump-version }}
     secrets: inherit
     permissions:
       pull-requests: write
