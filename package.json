@@ -75,11 +75,6 @@
       ],
       "scm/title": [
         {
-          "command": "betterBranchNameDisplay.warning",
-          "when": "scmProvider == git && betterBranchNameDisplay.isNotMain",
-          "group": "navigation@-310"
-        },
-        {
           "command": "betterBranchNameDisplay.conventionalCommits",
           "when": "scmProvider == git",
           "group": "navigation@310"
@@ -93,6 +88,11 @@
           "command": "betterBranchNameDisplay.switchToMain",
           "when": "scmProvider == git",
           "group": "navigation@312"
+        },
+        {
+          "command": "betterBranchNameDisplay.warning",
+          "when": "scmProvider == git && betterBranchNameDisplay.isNotMain",
+          "group": "navigation@313"
         }
       ]
     },
