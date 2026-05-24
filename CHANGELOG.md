@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.11.0](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/releases/tag/v1.11.0) (2026-05-24)
+
+### 🚀 Features
+* feat: add Pull Now dialog after switching to main by [](https://github.com/google-labs-jules)[bot] in [#60](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/pull/60)
+### 📚 Other Changes
+* [bot] Changelog 1.10.2 (20260523-060326) by [](https://github.com/github-actions)[bot] in [#59](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/pull/59)
+* [bot] Sync `.github` (20260524-013727) by [](https://github.com/github-actions)[bot] in [#61](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/pull/61)
+* [bot] Bump 1.11.0 (20260524-015407) by [](https://github.com/github-actions)[bot] in [#62](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/pull/62)
+
+
+**Full Changelog**: https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/compare/v1.10.2...v1.11.0
+
+
 ## [1.10.2](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/releases/tag/v1.10.2) (2026-05-23)
 
 ### 🧹 Bug Fixes
