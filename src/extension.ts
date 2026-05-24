@@ -166,7 +166,8 @@ Cleanup cannot be undone.`,
 
             if (!upstreamExists) {
               try {
-                await activeRepo.deleteBranch(ref.name);
+                const force = false; // false means don't delete if not merged
+                await activeRepo.deleteBranch(ref.name, force);
                 deleted.push(ref.name);
               } catch (e) {
                 failed.push(ref.name);
@@ -190,7 +191,7 @@ Cleanup cannot be undone.`,
       }
     } catch (e: any) {
       const message = `Failed to fetch (prune) or cleanup.\n\n${e.message || e}`;
-      vscode.window.showErrorMessage(message);
+      vscode.window.showErrorMessage(message, { modal: true });
     }
   }));
 
@@ -206,7 +207,7 @@ Cleanup cannot be undone.`,
         await activeRepo.checkout('master');
       } catch (e2: any) {
         const message = `Failed to switch to 'main' or 'master' branch.\n\n[main]: ${e.message || e}\n\n[master]: ${e2.message || e2}`;
-        vscode.window.showErrorMessage(message);
+        vscode.window.showErrorMessage(message, { modal: true });
       }
     }
 
@@ -216,7 +217,7 @@ Cleanup cannot be undone.`,
       try {
         await activeRepo.pull();
       } catch (e: any) {
-        vscode.window.showErrorMessage(`Pull Now failed: ${e.message || e}`);
+        vscode.window.showErrorMessage(`Pull Now failed: ${e.message || e}`, { modal: true });
       }
     }
   }));
