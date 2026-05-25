@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.11.1](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/releases/tag/untagged-0669334dfb31a84742e8) (2026-05-24)
+## [1.11.1](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/releases/tag/v1.11.1) (2026-05-24)
 
 ### 📚 Other Changes
 * [bot] Changelog 1.11.0 (20260524-034726) by [@github-actions](https://github.com/github-actions)[bot] in [#82](https://github.com/sator-imaging/VSCode-BetterBranchNameDisplay/pull/82)
